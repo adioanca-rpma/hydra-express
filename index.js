@@ -31,7 +31,6 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const express = require('express');
 const helmet = require('helmet');
-const http = require('http');
 const moment = require('moment');
 const path = require('path');
 const responseTime = require('response-time');
@@ -408,7 +407,22 @@ class HydraExpress {
 
     app.set('port', this.config.servicePort);
 
-    this.server = http.createServer(app);
+    if (this.config.https && this.config.https.certName) {
+      const https = require('https');
+      const fs = require('fs');
+      var key = fs.readFileSync(`./${this.config.https.certName}.key`);
+      var cert = fs.readFileSync(`./${this.config.https.certName}.crt`);
+      var options = {
+        key: key,
+        cert: cert
+      };
+  
+      this.server = https.createServer(options, app);
+    }
+    else {
+      const http = require('http');
+      this.server = http.createServer(app);
+    }
 
     /**
      * @param {object} error - error object
