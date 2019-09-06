@@ -407,11 +407,11 @@ class HydraExpress {
 
     app.set('port', this.config.servicePort);
 
-    if (this.config.https && this.config.https.certName) {
+    if (this.config.https && this.config.https.cert) {
       const https = require('https');
       const fs = require('fs');
-      var key = fs.readFileSync(`./${this.config.https.certName}.key`);
-      var cert = fs.readFileSync(`./${this.config.https.certName}.crt`);
+      var key = fs.readFileSync(`${this.config.https.privateKey}`);
+      var cert = fs.readFileSync(`${this.config.https.cert}`);
       var options = {
         key: key,
         cert: cert
