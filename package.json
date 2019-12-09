@@ -29,7 +29,7 @@
     "express": "4.16.3",
     "helmet": "3.12.0",
     "https": "^1.0.0",
-    "hydra": "1.7.1",
+    "hydra": "adioanca-rpma/hydra#master",
     "moment": "2.21.0",
     "response-time": "2.3.2"
   },
